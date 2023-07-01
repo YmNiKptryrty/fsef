@@ -1,0 +1,294 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPYrKdSa9Yl/mXVFkbWTSqd",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/YmNiKptryrty/fsef/blob/main/Exploratory%20Data%20Analysis\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "8nLTPvAiWVXA"
+      },
+      "outputs": [],
+      "source": [
+        "# Загружаем библиотеки\n",
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import seaborn as sns\n",
+        "import matplotlib.pyplot as plt"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = pd.read_csv(\"Mall_Customers.csv\")\n",
+        "df.head(5) # отобразить первые 5 строк"
+      ],
+      "metadata": {
+        "id": "uIV8yjecXGem"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.tail(5) # отображение нижних 5 строк"
+      ],
+      "metadata": {
+        "id": "8mJkkhr6XZG-"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = df.rename(columns={\"CustomerID\": \"ID Покупателя\", \"Genre\": \"Пол\", \"Age\": \"Возраст\", \"Annual Income (k$)\": \"Годовой доход (k$)\",\"Spending Score (1-100)\": \"Оценка расходов (1-100)\"})\n",
+        "df.head(5) # переименование столбцов"
+      ],
+      "metadata": {
+        "id": "1mryldbpZ36e"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.dtypes  # типы данных"
+      ],
+      "metadata": {
+        "id": "CjkpeA9TXq-7"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.count() # Используется для подсчета количества строк"
+      ],
+      "metadata": {
+        "id": "Gbt_GUcnbYp1"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.shape # узнаем сколько записей в датасете"
+      ],
+      "metadata": {
+        "id": "4U72gvAlXvuP"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Удаление дубликтов"
+      ],
+      "metadata": {
+        "id": "k9q_BhXFYO8A"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = df.drop_duplicates() # удаляем дублирующие записи\n",
+        "df.shape"
+      ],
+      "metadata": {
+        "id": "ehDcbPCsYi8Z"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = df.dropna() # Удаление недостающих значений.\n",
+        "df.count()"
+      ],
+      "metadata": {
+        "id": "mDkYuMakbyR4"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Обработка пропусков"
+      ],
+      "metadata": {
+        "id": "iMYF4xdOYxRx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.isnull().mean() * 100 # проверяем насколько наши признаки полны"
+      ],
+      "metadata": {
+        "id": "JhHWyIEuYzS2"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Обнаружение аномалий"
+      ],
+      "metadata": {
+        "id": "pSHASldkcKoU"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sns.boxplot(x=df['Возраст']) # ящик с усами по столбцу Возраст"
+      ],
+      "metadata": {
+        "id": "bw6MMDqQcOSd"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sns.boxplot(x=df['Годовой доход (k$)']) # ящик с усами по столбцу Годовой доход (k$)"
+      ],
+      "metadata": {
+        "id": "zmpSbRxLcj14"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sns.boxplot(x=df['Оценка расходов (1-100)']) # ящик с усами по столбцу Годовой доход (k$)"
+      ],
+      "metadata": {
+        "id": "xkRYVjdac1-e"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "q2 = df[\"Годовой доход (k$)\"].quantile(0.99) # удаление аномалий\n",
+        "df[df[\"Годовой доход (k$)\"] < q2]"
+      ],
+      "metadata": {
+        "id": "o-SdaPs-fKGt"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Визуализация данных"
+      ],
+      "metadata": {
+        "id": "ZsQ1P5sNfxIh"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.hist(column='Оценка расходов (1-100)', bins=40, density=True)"
+      ],
+      "metadata": {
+        "id": "OvPTXQhbubfm"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "fig, ax = plt.subplots(figsize=(10,6))\n",
+        "ax.scatter(df['Возраст'], df['Оценка расходов (1-100)'])\n",
+        "ax.set_xlabel('Возраст')\n",
+        "ax.set_ylabel('Оценка расходов (1-100)')\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "T2Yb1-Dhl9lH"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "plt.figure(figsize=(10,5))\n",
+        "c= df.corr()\n",
+        "sns.heatmap(c,cmap=\"BrBG\",annot=True)\n",
+        "c"
+      ],
+      "metadata": {
+        "id": "rLyRIkczlipx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install pandas_profiling --upgrade"
+      ],
+      "metadata": {
+        "id": "0VXdSHsck68Y"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from pandas_profiling import ProfileReport\n",
+        "\n",
+        "profile = ProfileReport(df)\n",
+        "profile"
+      ],
+      "metadata": {
+        "id": "5FoQA4zUlG9z"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
